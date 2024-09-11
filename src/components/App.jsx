@@ -13,6 +13,9 @@ function App() {
   function handelMouseOver() {
     setMouseOver(true);
   }
+  function handelMouseLeave() {
+    setMouseOver(false);
+  }
   return (
     <div className="container">
       <h1>{handelingText}</h1>
@@ -21,6 +24,7 @@ function App() {
         style={{ backgroundColor: isMousedOver ? "black" : "white" }}
         onClick={handelClick}
         onMouseOver={handelMouseOver}
+        onMouseOut={handelMouseLeave}
       >
         Submit
       </button>
