@@ -3,16 +3,32 @@ import React from "react";
 import { useState } from "react";
 
 function App() {
-  const [handelingText, setHandelingText] = useState("Hello");
   const [isMousedOver, setMouseOver] = useState(false);
-  const [name, setName] = useState("");
+
+  const [fullName, setFullName] = useState({
+    fName: "",
+    lName: "",
+  });
   function handelClick(event) {
-    setHandelingText("submitted");
     event.preventDefault();
   }
   function handelChange(event) {
-    console.log(event.target.value);
-    setName(event.target.value);
+    const newValue = event.target.value;
+    const inputName = event.target.name;
+
+    setFullName((prevValue) => {
+      if (inputName === "fName") {
+        return {
+          fName: newValue,
+          lName: prevValue.lName,
+        };
+      } else if (inputName === "lName") {
+        return {
+          fName: prevValue.fName,
+          lName: newValue,
+        };
+      }
+    });
   }
 
   function handelMouseOver() {
@@ -23,13 +39,22 @@ function App() {
   }
   return (
     <div className="container">
-      <h1>{handelingText + " " + name}</h1>
+      <h1>
+        Hello {fullName.fName} {fullName.lName}
+      </h1>
 
       <form onSubmit={handelClick}>
         <input
+          name="fName"
           onChange={handelChange}
-          type="text"
-          placeholder="What's your name?"
+          placeholder=" your Name?"
+          value={fullName.fName} //  Uncontrolled Component
+        />
+        <input
+          name="lName"
+          onChange={handelChange}
+          placeholder=" your LastName?"
+          value={fullName.lName} // Uncontrolled Component
         />
         <button
           type="submit"
