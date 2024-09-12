@@ -5,9 +5,13 @@ import { useState } from "react";
 function App() {
   const [handelingText, setHandelingText] = useState("Hello");
   const [isMousedOver, setMouseOver] = useState(false);
-
+  const [name, setName] = useState("");
   function handelClick() {
     setHandelingText("submitted");
+  }
+  function handelChange(event) {
+    console.log(event.target.value);
+    setName(event.target.value);
   }
 
   function handelMouseOver() {
@@ -18,8 +22,12 @@ function App() {
   }
   return (
     <div className="container">
-      <h1>{handelingText}</h1>
-      <input type="text" placeholder="What's your name?" />
+      <h1>{handelingText + " " + name}</h1>
+      <input
+        onChange={handelChange}
+        type="text"
+        placeholder="What's your name?"
+      />
       <button
         style={{ backgroundColor: isMousedOver ? "black" : "white" }}
         onClick={handelClick}
