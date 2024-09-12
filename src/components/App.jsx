@@ -5,10 +5,12 @@ import { useState } from "react";
 function App() {
   const [isMousedOver, setMouseOver] = useState(false);
 
-  const [fullName, setFullName] = useState({
+  const [contact, setContact] = useState({
     fName: "",
     lName: "",
+    email: "",
   });
+
   function handelClick(event) {
     event.preventDefault();
   }
@@ -16,16 +18,24 @@ function App() {
     const newValue = event.target.value;
     const inputName = event.target.name;
 
-    setFullName((prevValue) => {
+    setContact((prevValue) => {
       if (inputName === "fName") {
         return {
           fName: newValue,
           lName: prevValue.lName,
+          email: prevValue.email,
         };
       } else if (inputName === "lName") {
         return {
           fName: prevValue.fName,
           lName: newValue,
+          email: prevValue.email,
+        };
+      } else if (inputName === "email") {
+        return {
+          fName: prevValue.fName,
+          lName: prevValue.lName,
+          email: newValue,
         };
       }
     });
@@ -40,21 +50,28 @@ function App() {
   return (
     <div className="container">
       <h1>
-        Hello {fullName.fName} {fullName.lName}
+        Hello {contact.fName} {contact.lName}
       </h1>
+      <p>{contact.email}</p>
 
       <form onSubmit={handelClick}>
         <input
           name="fName"
           onChange={handelChange}
-          placeholder=" your Name?"
-          value={fullName.fName} //  Uncontrolled Component
+          placeholder="  Name"
+          value={contact.fName} //  Uncontrolled Component
         />
         <input
           name="lName"
           onChange={handelChange}
-          placeholder=" your LastName?"
-          value={fullName.lName} // Uncontrolled Component
+          placeholder=" LastName"
+          value={contact.lName} // Uncontrolled Component
+        />
+        <input
+          name="email"
+          onChange={handelChange}
+          placeholder=" your E-mail"
+          value={contact.email}
         />
         <button
           type="submit"
